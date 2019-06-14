@@ -4,15 +4,23 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Dao.EmployeeDao;
+import Dao.categoryDao;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class category extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	protected JLabel textField_2;
 
 	/**
 	 * Launch the application.
@@ -59,9 +67,38 @@ public class category extends JFrame {
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		
-		JButton btnCategory = new JButton("category");
-		btnCategory.setBounds(120, 11, 89, 23);
-		contentPane.add(btnCategory);
+		JButton btnSubmit = new JButton("submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String category_type=textField_1.getText();
+				int category_id=Int(textField_2.getText());
+				if(categoryDao.checkemployee(category_id)){
+				
+				int i=categoryDao.save(category_id, category_type);
+				if(i>0){
+					JOptionPane.showMessageDialog(employee.this,"employee added  successfully!");
+					menu.main(new String[]{});
+				
+					frame.dispose();
+					
+				}else{
+					JOptionPane.showMessageDialog(employee.this,"Sorry does n't exist ");
+				}//end of save if-else
+				
+				}
+				}
+				
+			
+		});
+		btnSubmit.setBounds(120, 160, 89, 23);
+		contentPane.add(btnSubmit);
+		
+		protected int Int(String text) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
-
+		JLabel lblCategory = new JLabel("category");
+		lblCategory.setBounds(166, 11, 46, 14);
+		contentPane.add(lblCategory);
+	}
 }

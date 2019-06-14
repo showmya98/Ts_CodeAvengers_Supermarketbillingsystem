@@ -1,16 +1,19 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Window;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
+
+import Dao.EmployeeDao;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JCheckBox;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class employee extends JFrame {
 
@@ -18,12 +21,11 @@ public class employee extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JTextField textField_3;
-	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
 	 */
+	JFrame frame;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -47,60 +49,71 @@ public class employee extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		JButton btnEmployee = new JButton("employee");
-		btnEmployee.setBounds(163, 11, 89, 23);
-		contentPane.add(btnEmployee);
 		
-		JLabel lblEmployeeId = new JLabel("employee ID");
-		lblEmployeeId.setBounds(23, 51, 80, 14);
-		contentPane.add(lblEmployeeId);
-		
-		JLabel lblEmployeeName = new JLabel("employee name");
-		lblEmployeeName.setBounds(23, 76, 97, 14);
-		contentPane.add(lblEmployeeName);
-		
-		JLabel label = new JLabel(" ");
-		label.setBounds(23, 107, 63, 14);
+		JLabel label = new JLabel("");
+		label.setBounds(5, 5, 424, 0);
 		contentPane.add(label);
 		
-		JLabel lblMobileNo = new JLabel("mobile no.");
-		lblMobileNo.setBounds(23, 101, 80, 14);
-		contentPane.add(lblMobileNo);
+		JLabel lblemployee = new JLabel("Employee");
+		lblemployee.setBounds(161, 16, 88, 25);
+		contentPane.add(lblemployee);
 		
-		JLabel lblAdress = new JLabel("adress");
-		lblAdress.setBounds(23, 121, 80, 14);
-		contentPane.add(lblAdress);
+		JLabel lblEmployeeName = new JLabel("Employee name");
+		lblEmployeeName.setBounds(30, 53, 108, 14);
+		contentPane.add(lblEmployeeName);
 		
-		JLabel lblEmailAdress = new JLabel("email adress");
-		lblEmailAdress.setBounds(23, 146, 80, 14);
-		contentPane.add(lblEmailAdress);
+		JLabel lblEmployeeId = new JLabel("Employee id");
+		lblEmployeeId.setBounds(30, 90, 108, 14);
+		contentPane.add(lblEmployeeId);
 		
-		JLabel lblPassword = new JLabel("password");
-		lblPassword.setBounds(23, 181, 46, 14);
-		contentPane.add(lblPassword);
+		JLabel lblEmployeePhno = new JLabel("Employee phno");
+		lblEmployeePhno.setBounds(30, 122, 94, 14);
+		contentPane.add(lblEmployeePhno);
 		
 		textField = new JTextField();
-		textField.setBounds(188, 48, 86, 20);
+		textField.setBounds(195, 52, 86, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(188, 73, 86, 20);
+		textField_1.setBounds(195, 84, 86, 20);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(188, 101, 86, 20);
+		textField_2.setBounds(195, 119, 86, 20);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(188, 140, 86, 20);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		JButton btnSubmit = new JButton("submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			private JLabel textField_3;
+
+			public void actionPerformed(ActionEvent e) {
+				String employee_name=textField_1.getText();
+	
+				int Employee_id=Integer.parseInt(textField_2.getText());
+				
+				String Employee_phno= (textField_3.getText());
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(188, 178, 86, 20);
-		contentPane.add(passwordField);
+
+				if(EmployeeDao.checkemployee(Employee_id)){
+				
+				int i=EmployeeDao.save(employee_name, Employee_id, Employee_phno);
+				if(i>0){
+					JOptionPane.showMessageDialog(employee.this,"employee added  successfully!");
+					menu.main(new String[]{});
+				
+					frame.dispose();
+					
+				}else{
+					JOptionPane.showMessageDialog(employee.this,"Sorry does n't exist ");
+				}//end of save if-else
+				
+				}
+				}
+			});
+		btnSubmit.setBounds(100, 186, 138, 23);
+		contentPane.add(btnSubmit);
 	}
 }

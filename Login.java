@@ -18,10 +18,13 @@ import javax.swing.GroupLayout;
 		protected static final String employeeDao = null;
 		protected static final Login employeeSuccess = null;
 		protected static final Login AdminSuccess = null;
+		protected static final Login Adminsuccess = null;
+		protected static final Login EmployeeForm = null;
 		static Login frame;
 		private JPanel contentPane;
 		private JTextField textField;
 		private JPasswordField passwordField;
+		protected Login login;
 
 		/**
 		 * Launch the application.
@@ -48,6 +51,7 @@ import javax.swing.GroupLayout;
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
+		
 			
 			JLabel lblAdminLoginForm = new JLabel(" Login Form");
 			lblAdminLoginForm.setForeground(Color.GRAY);
@@ -56,27 +60,25 @@ import javax.swing.GroupLayout;
 			JLabel lblEnterName = new JLabel("Enter Name:");
 			
 			JLabel lblEnterPassword = new JLabel("Enter Password:");
-			
 			textField = new JTextField();
 			textField.setColumns(10);
 			
 			JButton btnLogin = new JButton("Login");
 			btnLogin.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e) {	
 				String name=textField.getText();
 				String password=String.valueOf(passwordField.getPassword());
 				//System.out.println(name+" "+password);
 				if(name.equals("sowmya")&&password.equals("123")) {
-					AdminSuccess.main(new String[]{});
+					menu.main(new String[]{});
 					frame.dispose();
 				}else{
 					JOptionPane.showMessageDialog(Login.this, "Sorry, Username or Password Error","Login Error!", JOptionPane.ERROR_MESSAGE);
 					textField.setText("");
-					passwordField.setText("");
+				passwordField.setText("");
 				}
 				}
 			});
-			
 			passwordField = new JPasswordField();
 			GroupLayout gl_contentPane = new GroupLayout(contentPane);
 			gl_contentPane.setHorizontalGroup(
@@ -112,7 +114,7 @@ import javax.swing.GroupLayout;
 						.addGap(28)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblEnterPassword)
-							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
 						.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(80, Short.MAX_VALUE))
